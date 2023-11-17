@@ -7,19 +7,19 @@ const getColors = (solution, word) => {
 
     for (let i = 0; i < solution.length; i++) {
         const ind = result.indexOf(word[i])
-        if(ind > -1) result[ind] = "+";
+        if(ind > -1) result[ind] = "$";
     }
 
     return result.map((letter) => {
         if (letter === "*") return 'correct';
-        if (letter === "+") return 'semi-correct';
+        if (letter === "$") return 'semi-correct';
         return 'wrong'
     })
 }
 
 const Row = ({ word, isFinished, solution }) => {
 
-    const colors = isFinished ? getColors(solution, word) : new Array(5).fill('')
+    const colors = isFinished ? getColors(solution, word) : new Array(5).fill('');
 
     return new Array(5).fill("").map((_, idx) => (
         <div key={idx} className={`board-cell ${colors[idx]}`}>
