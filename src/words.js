@@ -58,5 +58,10 @@ export const words = [
     "LEMON",
     "MANGO",
     "NOBLE",
-    "PRISM"   
+    "PRISM",
+    "BLISS",
+    "GRASP",
+    "FLEET",
+    "BRAVE",
+    "CHIRP",
 ]

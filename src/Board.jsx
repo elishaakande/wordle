@@ -24,7 +24,7 @@ const Row = ({ word, isFinished, solution }) => {
 
     return new Array(5).fill("").map((_, idx) => (
         <div key={idx} className={`board-cell ${colors[idx]}`}>
-            {word[idx] ?? ""}
+            {word[idx]}
         </div>
     ));
 }
