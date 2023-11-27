@@ -1,4 +1,4 @@
-const rows = ['QWERTYUIOP', 'ASDFGHJK', '+ZXCVBNM-'];
+const rows = ['QWERTYUIOP', 'ASDFGHJKL', '+ZXCVBNM-'];
 
 const getColor = (letter, solution, guesses) => {
     const ind = solution.indexOf(letter)
@@ -9,15 +9,15 @@ const getColor = (letter, solution, guesses) => {
     return "semi-correct"
 }
 
-const Keyboard = ({ solution, letters, guesses }) => {
+const Keyboard = ({ solution, letters, guesses, onPress }) => {
   return (
     <div className="keyboard">
         {rows.map((row, rowIdx) => (
             <div key={rowIdx} className="keyboard-row">
                 {row.split('').map((letter, letterIdx) => (
-                    <div key={letterIdx} className={`keyboard-letter ${letters.includes(letter) && getColor(letter, solution, guesses)}`}>
+                    <button onClick={() => onPress(letter)} key={letterIdx} className={`keyboard-letter ${letters.includes(letter) && getColor(letter, solution, guesses)}`}>
                         {letter === '+' ? 'ENTER' : letter === '-' ? 'DELETE' : letter}
-                    </div>
+                    </button>
                 ))}
             </div>
         ))}

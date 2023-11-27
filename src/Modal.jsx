@@ -17,7 +17,7 @@ const Modal = ({ gameStatus, solution, handleGameReset }, ref) => {
     return (
         <div className="backdrop">
             <div className="modal">
-                <p>{gameStatus}</p>
+                <p className={`status ${gameStatus === 'You Won' ? 'won' : 'lost'}`}>{gameStatus}</p>
                 <p>The word was: {solution}</p>
                 <button onClick={onClose}>Play Again?</button>
             </div>

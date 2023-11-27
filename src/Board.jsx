@@ -1,20 +1,21 @@
 const getColors = (solution, word) => {
-    const result = solution.split("");
+    const result = Array(solution.length).fill("wrong");
 
     for (let i = 0; i < solution.length; i++) {
-        if (word[i] === result[i]) result[i] = "*";
+        result[i] = getCellColor(word[i], solution[i], solution);
     }
 
-    for (let i = 0; i < solution.length; i++) {
-        const ind = result.indexOf(word[i])
-        if(ind > -1) result[ind] = "$";
-    }
+    return result;
+};
 
-    return result.map((letter) => {
-        if (letter === "*") return 'correct';
-        if (letter === "$") return 'semi-correct';
-        return 'wrong'
-    })
+const getCellColor = (letter, solutionAtPosition, solution) => {
+    if (letter === solutionAtPosition) {
+        return "correct";
+    }
+    if (solution.includes(letter)) {
+        return "semi-correct";
+    }
+    return "wrong";
 }
 
 const Row = ({ word, isFinished, solution }) => {

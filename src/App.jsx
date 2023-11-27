@@ -38,6 +38,31 @@ const App = () => {
     setGameStatus('');
   }
 
+  const handleKeyPressed = (e) => {
+      if (e === "-" && currentWord.length > 0) {
+        setCurrentWord((currentWord) => currentWord.slice(0, -1))
+        return;
+      }
+
+      if (currentWord.length === 5) {
+        if (e !== "+") return
+        else {
+          setGuesses((guesses) =>
+            guesses.map((guess, idx) =>
+              idx === currentRow ? currentWord : guess
+            )
+          );
+          setLetters(letters => merge(letters, currentWord));
+          setCurrentRow((currentRow) => currentRow + 1);
+          setCurrentWord("");
+          return;
+        }
+      } else {
+        setCurrentWord((currentWord) => currentWord + e.toUpperCase());
+        return;
+      }
+    };
+
   const handleKeyDown = useCallback(
     (e) => {
       const { keyCode, key } = e;
@@ -68,12 +93,12 @@ const App = () => {
     }, [currentWord, currentRow]);
 
   useEffect(() => {
-    if (guesses[currentRow-1] === solution && solution) {
+    if (guesses[currentRow - 1] === solution && solution) {
       setGameStatus('You Won');
       ref.current.openModal()
     }
-    else if (currentRow > ROWS -1){
-      setGameStatus('You lost');
+    else if (currentRow > ROWS - 1) {
+      setGameStatus('You Lost');
       ref.current.openModal()
     }
   }, [guesses, currentRow, solution])
@@ -87,16 +112,17 @@ const App = () => {
   return (
     <div className="App">
       <div className="nav">Wordle</div>
-      <Board 
-        guesses={guesses} 
-        currentRow={currentRow} 
+      <Board
+        guesses={guesses}
+        currentRow={currentRow}
         currentWord={currentWord}
         solution={solution}
       />
-      <Keyboard 
-        letters={letters} 
+      <Keyboard
+        letters={letters}
         solution={solution}
         guesses={guesses}
+        onPress={handleKeyPressed}
       />
       <Modal
         gameStatus={gameStatus}
